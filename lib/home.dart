@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frasesdodia/telaFrases.dart';
 import 'dart:math';
 import 'dart:io';
 import 'dart:convert';
@@ -69,7 +70,7 @@ class _HomeState extends State<Home> {
   void initState() {
     _lerArquivo().then((frases){
       setState(() {
-        _frases = json.decode(frases);
+        frases = json.decode(frases);
       });
     });
   }
@@ -180,7 +181,10 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: BottomAppBar(
         child: Row(
           children: <Widget>[
-            IconButton(onPressed: (){}, icon: Icon(Icons.add, color: Colors.white,))
+            IconButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>TelaFrases(_frases)));
+            },
+                icon: Icon(Icons.menu, color: Colors.black,))
           ],
         )
       ),
