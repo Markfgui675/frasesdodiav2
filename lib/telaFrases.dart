@@ -14,6 +14,61 @@ class TelaFrases extends StatefulWidget {
 
 class _TelaFrasesState extends State<TelaFrases> {
 
+  Widget listaFrases(context, index){
+
+    final item = DateTime.now().microsecondsSinceEpoch.toString();
+
+    return Dismissible(key: Key(item),
+
+        onDismissed: (direction){
+
+          final snackbar = SnackBar(
+            backgroundColor: Colors.green,
+            content: Text('Frase removida'),
+            duration: Duration(seconds: 2),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+
+
+          if(direction == DismissDirection.startToEnd){
+            //pegar frase já escrita
+
+            //salvar alteração
+          } else if(direction == DismissDirection.endToStart){
+            //exluir
+            widget.frases!.removeAt(index);
+          }
+
+        },
+        
+        background: Container(
+          color: Colors.green,
+          padding: EdgeInsets.all(16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Icon(Icons.edit, color: Colors.white),
+            ],
+          ),
+        ),
+        secondaryBackground: Container(
+          color: Colors.redAccent,
+          padding: EdgeInsets.all(16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Icon(Icons.delete, color: Colors.white)
+            ],
+          ),
+        ),
+
+        child: ListTile(
+          title: Text(widget.frases![index]),
+        )
+    );
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,11 +85,7 @@ class _TelaFrasesState extends State<TelaFrases> {
             Expanded(child:
                 ListView.builder(
                   itemCount: widget.frases?.length,
-                    itemBuilder: (context, index){
-                      return ListTile(
-                        title: Text(widget.frases![index]),
-                      );
-                    },
+                    itemBuilder: listaFrases,
                 )
             )
           ],

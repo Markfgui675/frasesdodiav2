@@ -22,7 +22,8 @@ class _HomeState extends State<Home> {
 
   var _fraseGerada = 'Clique no botão para gerar uma frase';
   void _gerarFrase(){
-    if (_frases.length == 0){
+    int tamanhoLista = _frases.length;
+    if (tamanhoLista == 0){
       _fraseGerada = 'Não há nenhuma frase';
     }
     var randomNumber = Random().nextInt(_frases.length);
@@ -44,12 +45,12 @@ class _HomeState extends State<Home> {
     setState(() {
       _frases.add(novaFraseDigitada);
     });
-    _salvarArquivo();
+    salvarArquivo();
 
     _novaFrase.text = '';
   }
 
-  _salvarArquivo() async {
+  salvarArquivo() async {
     var arquivo = await _getFile();
     print(arquivo.toString());
 
